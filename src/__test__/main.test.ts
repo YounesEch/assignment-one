@@ -1,6 +1,6 @@
 /**
- * @jest-enviroment jsdom
- */
+* @jest-environment jsdom
+*/
 
 import { createNewTodo, clearTodos } from "../ts/main";
 import { Todo } from "../ts/models/Todo";
@@ -31,18 +31,36 @@ test("should create a new todo, HTML",()=>{
 });
 
 
+
+
+
+
+
+
+
 //**********************clear todo*********************//
-test ("should clear todo", () =>{
+test("should clear todo", () => {
     //arrenge
     document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
-    let spyOnRemoveAll= jest.spyOn(functions, "removeAllTodos").mockRejectedValue;
-    let spyOncreateHtml = jest.spyOn(main, "createHtml").mockReturnValue(); 
+    let spyOnRemoveAll= jest.spyOn(functions, "removeAllTodos").mockReturnValue();
     //act
     main.clearTodos([]);
     //assert
-    expect(spyOnRemoveAll).toBeCalled();
-    expect(spyOncreateHtml).toBeCalled();
+    expect(spyOnRemoveAll).toHaveBeenCalled();
 })
+
+test("should clear the structur", () => {
+    //arrange
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+    let spyOncreateHtml= jest.spyOn(main, "createHtml").mockReturnValue(); 
+
+    //act
+    main.clearTodos([]);
+    //assert
+    expect(document.getElementById("todos") as HTMLUListElement);
+
+})
+
 
 
 

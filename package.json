@@ -10,7 +10,7 @@
     "ts-jest": "^29.0.5"
   },
   "scripts": {
-    "test": "jest"
+    "test": "npx jest --watchAll"
   },
   "jest": {
     "preset": "ts-jest",

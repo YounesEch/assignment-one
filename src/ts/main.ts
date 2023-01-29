@@ -81,4 +81,4 @@ export function clearTodos(todos: Todo[]) {
   createHtml(todos);
 }
 
-createHtml(todos);
+//createHtml(todos);
