@@ -2,8 +2,8 @@
 * @jest-environment jsdom
 */
 
-import { createNewTodo, clearTodos } from "../ts/main";
 import { Todo } from "../ts/models/Todo";
+import { createNewTodo, clearTodos, createHtml, toggleTodo } from "../ts/main";
 import * as main from '../ts/main';
 import * as functions from '../ts/functions';
 
@@ -25,7 +25,7 @@ test("should createNewTodo, HTML",()=>{
 
     //act
 
-    main.createNewTodo(todoText, todos);
+    createNewTodo(todoText, todos);
   
     //assert  
     expect(result).not.toBe("new todo");
@@ -40,18 +40,46 @@ test("should not createNewTodo", () => {
     let result = document.getElementById('error');
 
     //act
-    main.createNewTodo(todoText, todos);
+    createNewTodo(todoText, todos);
 
     //assert
     expect(result).toBeTruthy();
 })
 
 
-
 //*************************createHTMl************************//
-test("should create a new HTML", () => {
+/*test("should create a new HTML dom", () => {
+    //arrenge
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+    let todo = Todo[]= [text: "test", done: false];
+    let todosContainer = 
+    '<ul id="todos" class="todo">' +
+    '<li class="todo__text--done todo__text"></li>' +
+    '</ul>';
+    //act
+    createHtml(todo);
+    
+    //assert
+    expect(document.getElementById("todos")?.outerHTML).toBe(todosContainer);
+})*/
 
+
+
+
+//*****************toggleTodo***********//
+test("should toggle the todo list", ()=>{
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+    let spyOnChangeTodo = jest.spyOn(functions, "changeTodo").mockReturnValue();
+    let spyOncreateHtml = jest.spyOn(main, "createHtml").mockReturnValue(); 
+    let todos: Todo= {text: 'test', done: false};
+
+    toggleTodo(todos);
+
+    expect(spyOnChangeTodo).toBeCalled();
+    expect(spyOncreateHtml).not.toBeCalled(); 
 })
+
+
 
 
 
@@ -64,27 +92,18 @@ test("should clear todo", () => {
     main.clearTodos([]);
     //assert
     expect(spyOnRemoveAll).toHaveBeenCalled();
-})
+});
 
 test("should clear the structur", () => {
     //arrange
     document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
-    let spyOncreateHtml= jest.spyOn(main, "createHtml").mockReturnValue(); 
+    let spyOnCreateHtml= jest.spyOn(main, "createHtml").mockReturnValue(); 
 
     //act
-    main.clearTodos([]);
+    clearTodos([]);
     //assert
-    expect(document.getElementById("todos") as HTMLUListElement);
-
-})
-
-
-
-
-
-
-
-
+    expect(spyOnCreateHtml).not.toBeCalled();
+});
 
 
 
@@ -95,4 +114,4 @@ test("should clear the structur", () => {
 
 //bör göra ett test ifall man lägger in rätt mening samt även ifall det inte är inlagt rätt mening dvs 2 st för varje funktion
 //describe("funktionen", ()={
-    //beskriver testerna när testet görs})
+//beskriver testerna när testet görs})
