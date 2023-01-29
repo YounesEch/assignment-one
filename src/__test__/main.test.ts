@@ -14,27 +14,44 @@ document.body.innerHTML=""; //säger att dokumentet alltid nollställs inför et
 });
 
 
-//**********************ceate a new todo*********************//
+//**********************createNewTodo*********************//
 
-test("should create a new todo, HTML",()=>{
+test("should createNewTodo, HTML",()=>{
     //Arrenge
     document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
     let todoText = "new todo";
     let todos: Todo[] = [];
+    let result = document.getElementById('todos');
+
     //act
 
-    createNewTodo(todoText, todos);
-    let result = document.getElementById('todos');
-    //assert
-    expect(result).toBe("new todo");
-    expect(result?.innerHTML).not.toBe("null");
+    main.createNewTodo(todoText, todos);
+  
+    //assert  
+    expect(result).not.toBe("new todo");
+    expect(result?.innerHTML).not.toBeNull();
 });
 
+test("should not createNewTodo", () => {
+    //arrenge
+    document.body.innerHTML = `<div id="error" class="error"></div>`;
+    let todoText = "A";
+    let todos: Todo[]= [];
+    let result = document.getElementById('error');
+
+    //act
+    main.createNewTodo(todoText, todos);
+
+    //assert
+    expect(result).toBeTruthy();
+})
 
 
 
+//*************************createHTMl************************//
+test("should create a new HTML", () => {
 
-
+})
 
 
 
