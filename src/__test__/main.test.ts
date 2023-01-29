@@ -2,16 +2,23 @@
  * @jest-enviroment jsdom
  */
 
-import { createNewTodo } from "../main";
-import { Todo } from "../models/Todo";
+import { createNewTodo, clearTodos } from "../ts/main";
+import { Todo } from "../ts/models/Todo";
+import * as main from '../ts/main';
+import * as functions from '../ts/functions';
+
+
 
 beforeEach (()=>{
 document.body.innerHTML=""; //säger att dokumentet alltid nollställs inför ett test
 });
 
+
+//**********************ceate a new todo*********************//
+
 test("should create a new todo, HTML",()=>{
     //Arrenge
-    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
     let todoText = "new todo";
     let todos: Todo[] = [];
     //act
@@ -24,6 +31,18 @@ test("should create a new todo, HTML",()=>{
 });
 
 
+//**********************clear todo*********************//
+test ("should clear todo", () =>{
+    //arrenge
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+    let spyOnRemoveAll= jest.spyOn(functions, "removeAllTodos").mockRejectedValue;
+    let spyOncreateHtml = jest.spyOn(main, "createHtml").mockReturnValue(); 
+    //act
+    main.clearTodos([]);
+    //assert
+    expect(spyOnRemoveAll).toBeCalled();
+    expect(spyOncreateHtml).toBeCalled();
+})
 
 
 
