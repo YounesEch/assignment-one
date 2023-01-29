@@ -2,6 +2,7 @@
 *@jest-environment jsdom
 */
 
+import * as main from "../ts/main"
 import * as functions from "../ts/functions"
 import { Todo } from "../ts/models/Todo";
 
@@ -12,11 +13,18 @@ beforeEach (()  => {
 
 
 
-    
+test("should changeTodo", () => {
+    //arrange
+    let todos: Todo = {text:"hello", done:false};
+    //act
+    functions.changeTodo(todos);
+    //assert
+    expect(todos.done).toBe(true);
+});
 
 
 
-test("should removeAllTodos", () => {
+test("should split the removeAllTodos", () => {
     //arrange
     let todos: Todo[]= [{text:"hello", done: true}];
     //act
@@ -24,4 +32,4 @@ test("should removeAllTodos", () => {
 
     //assert
     expect(todos.length).toBe(0);
-})
+});
