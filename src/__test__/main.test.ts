@@ -47,6 +47,7 @@ test("should not createNewTodo", () => {
 
 
 //*************************createHTMl************************//
+
 /*test("should create a new HTML dom", () => {
     //arrenge
     document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
@@ -125,6 +126,7 @@ test ("should not display an error message", () => {
 
 
 //**********************clear todo*********************//
+
 test("should clearTodos", () => {
     //arrenge
     let spyOnRemoveAllTodos= jest.spyOn(functions, "removeAllTodos").mockReturnValue();
@@ -138,10 +140,6 @@ test("should clearTodos", () => {
     expect(spyOncreateHtml).toBeCalled();
 
 });
-
-
-
-
 
 
     //arrange (krav för att möjliggöra testet, let etc)
